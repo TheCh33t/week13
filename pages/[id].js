@@ -4,7 +4,7 @@ import { getAllIds, getData } from '../lib/data';
 
 export async function getStaticProps({ params }) {
   const itemData = await getData(params.id);
-  console.log(itemData);
+  // console.log(itemData);
   return {
     props: {
       itemData
@@ -13,11 +13,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
- 
   const paths = await getAllIds();
-
-  
-  console.log(paths);
   return {
     paths,
     fallback: false
@@ -30,9 +26,8 @@ export default function Entry({ itemData }) {
       <article className="card col-6">
         <div className="card-body">
           <h5 className="card-title">{itemData.post_title}</h5>
-       
-          <p className="card-text">content: {itemData.post_content}</p>
-          
+          <h6 className="card-subtitle mb-2 text-muted">{itemData.user_login}</h6>
+          <div className="card-text" dangerouslySetInnerHTML={{__html: itemData.post_content}} />
         </div>
       </article>
     </Layout>
